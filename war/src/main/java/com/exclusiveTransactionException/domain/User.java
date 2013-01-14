@@ -2,7 +2,6 @@ package com.exclusiveTransactionException.domain;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import pl.com.it_crowd.seam.framework.Identifiable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "USER0S", uniqueConstraints = @UniqueConstraint(name = "UNIQUE___USERS___EMAIL", columnNames = "EMAIL"))
+@Table(name = "USEROS", uniqueConstraints = @UniqueConstraint(name = "UNIQUE___USERS___EMAIL", columnNames = "EMAIL"))
 public class User implements Serializable {
 // ------------------------------ FIELDS ------------------------------
 
@@ -32,7 +31,9 @@ public class User implements Serializable {
     @Column(name = "ID")
     private Long id;
 
-// --------------------- GETTER / SETTER METHODS ---------------------
+    @Length(min = 1, max = 255)
+    @Column(name = "PASSWORD", length = 255)
+    private String password;
 
     public String getEmail()
     {
@@ -43,6 +44,7 @@ public class User implements Serializable {
     {
         this.email = email;
     }
+    // --------------------- GETTER / SETTER METHODS ---------------------
 
     public Long getId()
     {

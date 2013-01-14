@@ -42,6 +42,19 @@ public class UserLoginCIT {
 
 // -------------------------- OTHER METHODS --------------------------
 
+    @FacesContextRequired
+    @ConversationScopeRequired
+    @Test
+    @UsingDataSet("com/exclusiveTransactionException/test/user/UserLoginCIT.xml")
+    public void invalidCredentials()
+    {
+        credentials.setUsername("jack@it-crowd.com.pl");
+        credentials.setPassword("bbb");
+        Assert.assertFalse(identity.isLoggedIn());
+        identity.login();
+        Assert.assertFalse(identity.isLoggedIn());
+    }
+
     @MockFacesContextProducer
     public FacesContext mockFacesContext()
     {
@@ -58,8 +71,11 @@ public class UserLoginCIT {
     @UsingDataSet("com/exclusiveTransactionException/test/user/UserLoginCIT.xml")
     public void userLogIn()
     {
+        credentials.setUsername("jack@it-crowd.com.pl");
+        credentials.setPassword("aaaaa");
+        Assert.assertFalse(identity.isLoggedIn());
         identity.login();
-        Assert.assertEquals(true, identity.isLoggedIn());
+        Assert.assertTrue(identity.isLoggedIn());
     }
 }
 
